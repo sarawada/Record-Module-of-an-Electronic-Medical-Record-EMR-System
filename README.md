@@ -24,6 +24,7 @@ Scheduling Configuration – Allows authorized users to configure clinic schedul
   10. Clinic scheduling and capacity management
   11. Role-based access control
 
+****  How to Use****
   1. Search for an existing patient through the Master Patient Index.
   2. Register or update patient information if necessary.
   3. Schedule appointments based on clinic availability.
@@ -37,4 +38,4 @@ Scheduling Configuration – Allows authorized users to configure clinic schedul
 GitHub: @sarawada
 
 **Acknowledgements**
-I would like to express my sincere gratitude to eHealth Africa for providing me with the opportunity to participate in the UI/UX Design Cohort, where I gained valuable knowledge and practical skills in user experience and interface design. I am also thankful to the healthcare professionals who shared their expertise and workflow insights, which greatly informed the design of this project.My special appreciation goes to Mr. Ahmad Abdulnasir Shuaib, my mentor, for his guidance, encouragement, and constructive feedback throughout the learning process. Finally, I am deeply grateful to my family and friends for their unwavering support, motivation, and encouragement, which contributed significantly to the successful completion of this project.
+I would like to express my sincere gratitude to eHealth Africa for providing me with the opportunity to participate in the UI/UX Design Cohort, where I gained valuable knowledge and practical skills in user experience and interface design. I am also thankful to the healthcare professionals who shared their expertise and workflow insights, which greatly informed the design of this project. My special appreciation goes to Mr. Ahmad Abdulnasir Shuaib, my mentor, for his guidance, encouragement, and constructive feedback throughout the learning process. Finally, I am deeply grateful to my family and friends for their unwavering support, motivation, and encouragement, which contributed significantly to the successful completion of this project.
