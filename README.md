@@ -34,7 +34,7 @@ Scheduling Configuration – Allows authorized users to configure clinic schedul
   10. Clinic scheduling and capacity management
   11. Role-based access control
 
-****  How to Use****
+**How to Use**
   1. Search for an existing patient through the Master Patient Index.
   2. Register or update patient information if necessary.
   3. Schedule appointments based on clinic availability.
