@@ -1,5 +1,13 @@
+
 # Record-Module-of-an-Electronic-Medical-Record-EMR-System
 The EMR Record Module design is a healthcare-focused UI/UX project aimed at improving the efficiency, usability, and workflow of patient record management within a hospital Electronic Medical Record (EMR) system. The project focuses on the day-to-day activities of Health Records Officers and Heads of Department (HODs), addressing common challenges such as duplicate patient records, inefficient patient search, appointment scheduling conflicts, poor queue visibility, and fragmented record management processes. The Design introduces a structured, role-based, and user-centered interface that streamlines patient registration, appointment management, queue management, and clinic scheduling while supporting faster access to patient information and improved patient flow.
+
+<img width="1440" height="1446" alt="2  Dashboard (1)" src="https://github.com/user-attachments/assets/3986723c-60f8-40d2-ab60-0b091afa5753" />
+<img width="1440" height="1324" alt="4 Master-Patient-index-2" src="https://github.com/user-attachments/assets/a8c00a04-e690-4890-8772-2ddb9964ef37" />
+<img width="1440" height="1324" alt="8 Book-Appointment" src="https://github.com/user-attachments/assets/7d069375-72f4-4d6b-8036-2798130d9007" />
+<img width="1440" height="1446" alt="11 Queue Management-1" src="https://github.com/user-attachments/assets/ebcf602a-1847-49c8-9d7b-5f73455a1770" />
+<img width="1440" height="1446" alt="9 Appointmen-Lists-1" src="https://github.com/user-attachments/assets/282575c8-4c29-4351-a0cf-f69af5433d27" />
+<img width="1440" height="1324" alt="5 Patient-Management" src="https://github.com/user-attachments/assets/5f670f2d-2faf-446b-9356-d02438b03aac" />
 
 
 
