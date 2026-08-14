@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FUTHL EMR — Schedule Configuration</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #F5F7FA;
+    color: #111827;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ============================================================
+     CSS VARIABLES
+     ============================================================ */
+  :root {
+    --green: #22C55E;
+    --green-dark: #16A34A;
+    --green-light: #DCFCE7;
+    --green-mint: #D1FAE5;
+    --text-primary: #111827;
+    --text-secondary: #6B7280;
+    --text-tertiary: #374151;
+    --border: #E5E7EB;
+    --bg-page: #F5F7FA;
+    --bg-page-2: #F9FAFB;
+    --bg-input: #FFFFFF;
+    --bg-soft: #F3F4F6;
+    --white: #FFFFFF;
+    --radius: 8px;
+    --radius-sm: 6px;
+  }
+
+  /* ============================================================
+     APP LAYOUT
+     ============================================================ */
+  .app {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ============================================================
+     SIDEBAR
+     ============================================================ */
+  .sidebar {
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 14px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .sidebar::-webkit-scrollbar { width: 6px; }
+  .sidebar::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 3px; }
+
+
+  .nav { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: var(--radius);
+    color: var(--text-tertiary);
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .15s ease;
+    user-select: none;
+  }
+  .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .nav-item:hover { background: var(--bg-soft); }
+  .nav-item.active {
+    background: var(--green);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(34,197,94,0.25);
+  }
+  .nav-item.active svg { color: #fff; }
+
+  .sidebar-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-top: 14px;
+    background: var(--white);
+  }
+  .sidebar-profile .avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22C55E, #16A34A);
+    color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+  .sidebar-profile .info { line-height: 1.3; }
+  .sidebar-profile .name { font-weight: 600; font-size: 13px; }
+  .sidebar-profile .role { font-size: 11px; color: var(--text-secondary); }
+
+  /* ============================================================
+     MAIN
+     ============================================================ */
+  .main { display: flex; flex-direction: column; min-width: 0; margin-left: 0px; }
+
+  /* ----- Top header ----- */
+  .topbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .page-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-right: auto; }
+
+  .search {
+    position: relative;
+    width: 320px;
+    max-width: 36vw;
+  }
+  .search input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid transparent;
+    background: var(--bg-soft);
+    border-radius: 999px;
+    padding: 0 14px 0 40px;
+    font-size: 13px;
+    color: var(--text-primary);
+    outline: none;
+    transition: all .15s ease;
+  }
+  .search input::placeholder { color: #9CA3AF; }
+  .search input:focus { background: #fff; border-color: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
+  .search .search-icon {
+    position: absolute; left: 14px; top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    color: var(--text-secondary);
+  }
+
+  .topbar-right { display: flex; align-items: center; gap: 18px; }
+  .datetime { font-size: 12px; color: var(--text-secondary); text-align: right; line-height: 1.4; }
+
+  .bell {
+    position: relative;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--text-tertiary);
+    transition: background .15s;
+  }
+  .bell:hover { background: #E5E7EB; }
+  .bell .badge {
+    position: absolute;
+    top: -2px; right: -2px;
+    background: #EF4444;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px; height: 18px;
+    border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #fff;
+    padding: 0 4px;
+  }
+
+  .user-chip {
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 999px;
+    transition: background .15s;
+  }
+  .user-chip:hover { background: var(--bg-soft); }
+  .user-chip .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #22C55E, #16A34A);
+    color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+  .user-chip .who { line-height: 1.3; }
+  .user-chip .who .n { font-size: 13px; font-weight: 600; }
+  .user-chip .who .r { font-size: 11px; color: var(--text-secondary); }
+  .user-chip .chev { color: var(--text-secondary); }
+
+  /* ----- Breadcrumb ----- */
+  .breadcrumb {
+    padding: 16px 28px 0 28px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .breadcrumb a { color: var(--text-secondary); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--green); }
+  .breadcrumb .sep { margin: 0 8px; color: #D1D5DB; }
+  .breadcrumb .current { color: var(--text-primary); font-weight: 600; }
+
+  /* ----- Content ----- */
+  .content { padding: 18px 28px 40px 28px; background-color: white; margin:10px 10px;}
+
+  .page-head { margin-bottom: 18px; }
+  .page-head h1 { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+  .page-head p { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+  /* ----- Form card ----- */
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    border: 1px solid #F0F1F3;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  .col { display: flex; flex-direction: column; gap: 28px; }
+
+  /* ----- Section with numbered badge ----- */
+  .section { }
+  .section-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .badge-num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-head h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+
+  .fields { display: flex; flex-direction: column; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
+
+  /* ----- Inputs / Selects ----- */
+  .input, .select {
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-input);
+    padding: 0 14px;
+    font-size: 14px;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+    width: 100%;
+    font-family: inherit;
+  }
+  .input::placeholder { color: #9CA3AF; }
+  .input:focus, .select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,0.15); }
+
+  /* custom select wrapper */
+  .select-wrap { position: relative; }
+  .select-wrap .chev {
+    position: absolute; right: 12px; top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    color: var(--text-secondary);
+    pointer-events: none;
+  }
+  .select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  /* ----- Days checkbox group ----- */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .day {
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    user-select: none;
+    transition: all .15s;
+  }
+  .day .check {
+    width: 16px; height: 16px;
+    border: 1.5px solid #D1D5DB;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  .day .check svg { width: 11px; height: 11px; color: #fff; opacity: 0; }
+  .day.checked {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+  .day.checked .check {
+    background: #fff;
+    border-color: #fff;
+  }
+  .day.checked .check svg { opacity: 1; color: var(--green); }
+
+  /* ----- Two-col field ----- */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* ----- Toggle row ----- */
+  .toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .toggle-row .lbl { font-size: 13px; color: var(--text-tertiary); font-weight: 500; }
+  .toggle {
+    position: relative;
+    width: 44px; height: 24px;
+    background: #D1D5DB;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .2s;
+    flex-shrink: 0;
+  }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 20px; height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform .2s;
+  }
+  .toggle.on { background: var(--green); }
+  .toggle.on::after { transform: translateX(20px); }
+  .toggle-row .status { font-size: 12px; color: var(--text-secondary); }
+
+  /* ----- Info box ----- */
+  .info-box {
+    background: var(--green-mint);
+    border-left: 3px solid var(--green);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .info-box .icon {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .info-box .icon svg { width: 12px; height: 12px; }
+  .info-box .text { font-size: 12.5px; color: #065F46; line-height: 1.5; }
+  .info-box .text strong { color: #064E3B; font-weight: 700; }
+  .info-box .text .sub { display: block; color: #047857; margin-top: 4px; font-size: 11.5px; }
+
+  /* ----- Footer / actions ----- */
+  .actions {
+    display: flex; justify-content: flex-end;
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
+  .btn {
+    height: 44px;
+    padding: 0 24px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background .15s, transform .05s;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(34,197,94,0.25);
+  }
+  .btn-primary:hover { background: var(--green-dark); }
+  .btn-primary:active { transform: translateY(1px); }
+
+  /* ----- Responsive ----- */
+  @media (max-width: 1024px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .form-grid { grid-template-columns: 1fr; gap: 28px; }
+    .search { width: 200px; }
+  }
+  @media (max-width: 640px) {
+    .topbar { flex-wrap: wrap; gap: 12px; padding: 12px 16px; }
+    .content { padding: 14px 16px 32px 16px; }
+    .breadcrumb { padding: 12px 16px 0 16px; }
+    .card { padding: 18px; }
+    .days-grid { grid-template-columns: repeat(3, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .datetime { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============================ SIDEBAR ============================ -->
+ <aside class="sidebar">
+       <div class="header-content">
+            <div class="logo">
+                <img src="img/Hospital_FUTH-logo (1).png" alt="FUTH logo">
+                <span class="logo-text">FUTH EMR</span>
+            </div>
+        </div>
+      <nav class="sidebar__nav">
+        <div class="nav-group"><a class="nav-item" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a></div>
+        <div class="nav-group"><a class="nav-item" href="patient-management.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span>Patients</a></div>
+        <div class="nav-group"><a class="nav-item" href="book-appointment.html"><span class="nav-icon"><i class="fa-regular fa-calendar-plus"></i></span>Appointment</a></div>
+        <div class="nav-group"><a class="nav-item " href="queue-management.html"><span class="nav-icon"><i class="fa-solid fa-clipboard-list"></i></span>Queue Management</a></div>
+        <div class="nav-group"><a class="nav-item active " href="schedule-configuration.html"><span class="nav-icon"><i class="fa-regular fa-clock"></i></span>Scheduling Configuration</a></div>
+        <div class="nav-divider"></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span>Settings</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-comment"></i></span>Message</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-circle-question"></i></span>Help Center</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-user-group"></i></span>Support</a></div>
+      </nav>
+      <div class="sidebar__footer">
+        <div class="user-avatar">UF</div>
+        <div class="user-info">
+          <div class="user-name">Umar Farouk</div>
+          <div class="user-role">Record Officer</div>
+          <div class="user-status"><span class="status-dot"></span> Online</div>
+        </div>
+      </div>
+    </aside>
+
+  <!-- ============================ MAIN ============================ -->
+  <main class="main">
+
+    <!-- Top header -->
+     <header class="topbar">
+        <div class="topbar__left">
+          <button class="topbar__menu-btn"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar__title">Patients</div>
+        </div>
+        <div class="topbar__center">
+          <div class="topbar__search">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search patients" />
+          </div>
+        </div>
+        <div class="topbar__right">
+          <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+          <div class="topbar__user">
+            <div class="user-avatar sm">UF</div>
+            <span style="font-size:13px; font-weight:500;">Umar Farouk</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </div>
+        </div>
+      </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="dashboard.html">HOME</a>
+      <span class="sep">›</span>
+      <span class="current">Schedule Configuration</span>
+    </div>
+
+    <!-- Content -->
+    <section class="content">
+      <div class="page-head">
+        <h1>Schedule Configuration</h1>
+        <p>Set clinic working hours, available dates and maximum number of patients per day</p>
+      </div>
+
+      <div class="card">
+        <div class="form-grid">
+
+          <!-- ============= LEFT COLUMN ============= -->
+          <div class="col">
+
+            <!-- Section 1 -->
+            <div class="section">
+              <div class="section-head">
+                <div class="badge-num">1</div>
+                <h3>Clinic Information</h3>
+              </div>
+              <div class="fields">
+                <div class="field">
+                  <label>Clinic Name</label>
+                  <div class="select-wrap">
+                    <select class="select">
+                      <option>Cardiology</option>
+                      <option>Dermatology</option>
+                      <option>Neurology</option>
+                      <option>Pediatrics</option>
+                      <option>Orthopedics</option>
+                    </select>
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Consultation Room(s)</label>
+                  <div class="select-wrap">
+                    <select class="select">
+                      <option>Room 01, Room 02, Room 03</option>
+                      <option>Room 01, Room 02</option>
+                      <option>Room 01</option>
+                    </select>
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Schedule Name</label>
+                  <input type="text" class="input" value="Cardiology Clinic Schedule" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section">
+              <div class="section-head">
+                <div class="badge-num">2</div>
+                <h3>Schedule Period</h3>
+              </div>
+              <div class="fields">
+                <div class="field">
+                  <label>Start Date</label>
+                  <div class="select-wrap">
+                    <select class="select">
+                      <option>12 July, 2026</option>
+                      <option>13 July, 2026</option>
+                      <option>14 July, 2026</option>
+                    </select>
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>End Date</label>
+                  <div class="select-wrap">
+                    <select class="select">
+                      <option>12 July, 2026</option>
+                      <option>19 July, 2026</option>
+                      <option>26 July, 2026</option>
+                    </select>
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Repeat Every Week</label>
+                  <div class="select-wrap">
+                    <select class="select">
+                      <option>Weekly</option>
+                      <option>Daily</option>
+                      <option>Monthly</option>
+                      <option>None</option>
+                    </select>
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============= RIGHT COLUMN ============= -->
+          <div class="col">
+
+            <!-- Section 3 -->
+            <div class="section">
+              <div class="section-head">
+                <div class="badge-num">3</div>
+                <h3>Date &amp; Time</h3>
+              </div>
+              <div class="fields">
+                <div class="field">
+                  <label>Days Available</label>
+                  <div class="days-grid" id="daysGrid">
+                    <div class="day checked" data-day="Mon"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Mon</div>
+                    <div class="day" data-day="Tue"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Tue</div>
+                    <div class="day checked" data-day="Wed"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Wed</div>
+                    <div class="day checked" data-day="Thur"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Thur</div>
+                    <div class="day checked" data-day="Fri"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Fri</div>
+                    <div class="day" data-day="Sat"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Sat</div>
+                    <div class="day" data-day="Sun"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Sun</div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Working Hours</label>
+                  <div class="two-col">
+                    <div class="field" style="gap:6px;">
+                      <label style="font-size:12px; color:var(--text-secondary);">Clinic opens</label>
+                      <div class="select-wrap">
+                        <select class="select">
+                          <option>8:00am</option>
+                          <option>9:00am</option>
+                          <option>10:00am</option>
+                        </select>
+                        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </div>
+                    </div>
+                    <div class="field" style="gap:6px;">
+                      <label style="font-size:12px; color:var(--text-secondary);">Clinic closes</label>
+                      <div class="select-wrap">
+                        <select class="select">
+                          <option>04:00pm</option>
+                          <option>05:00pm</option>
+                          <option>06:00pm</option>
+                        </select>
+                        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="section">
+              <div class="section-head">
+                <div class="badge-num">4</div>
+                <h3>Maximum Number of Patients</h3>
+              </div>
+              <div class="fields">
+                <div class="field">
+                  <label>Max No of Patients Per Day</label>
+                  <div class="select-wrap">
+                    <select class="select">
+                      <option>50</option>
+                      <option>60</option>
+                      <option>70</option>
+                      <option>80</option>
+                      <option>100</option>
+                    </select>
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+
+                <div class="toggle-row">
+                  <span class="lbl">Enable limit</span>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span class="status" id="enableLimitStatus">Enabled</span>
+                    <div class="toggle on" id="enableLimitToggle"></div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Max No of Patients Per Slot</label>
+                  <div class="select-wrap">
+                    <select class="select">
+                      <option>5</option>
+                      <option>10</option>
+                      <option>15</option>
+                      <option>20</option>
+                    </select>
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+
+                <div class="toggle-row">
+                  <span class="lbl">Auto Close Booking When Limit Reached</span>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span class="status" id="autoCloseStatus">Disabled</span>
+                    <div class="toggle" id="autoCloseToggle"></div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Overbook Allowance</label>
+                  <div class="select-wrap">
+                    <select class="select">
+                      <option>5</option>
+                      <option>10</option>
+                      <option>15</option>
+                    </select>
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                </div>
+
+                <!-- Info box -->
+                <div class="info-box">
+                  <div class="icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <div class="text">
+                    Based on historical data, <strong>53–60 patients per day is optimal</strong> for average waiting time under 45 minutes.
+                    <span class="sub">Current capacity set within recommended range.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button class="btn btn-primary" id="saveBtn">Save Configuration</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  /* ============================================================
+     INTERACTIVITY
+     ============================================================ */
+  // Day checkbox toggling
+  document.querySelectorAll('#daysGrid .day').forEach(function(d){
+    d.addEventListener('click', function(){
+      d.classList.toggle('checked');
+    });
+  });
+
+  // Toggle switches
+  function setupToggle(id, statusId, onText, offText) {
+    var t = document.getElementById(id);
+    var s = document.getElementById(statusId);
+    t.addEventListener('click', function(){
+      t.classList.toggle('on');
+      var isOn = t.classList.contains('on');
+      if (s) s.textContent = isOn ? onText : offText;
+    });
+  }
+  setupToggle('enableLimitToggle', 'enableLimitStatus', 'Enabled', 'Disabled');
+  setupToggle('autoCloseToggle',  'autoCloseStatus',  'Enabled', 'Disabled');
+
+  // Sidebar nav active state
+  document.querySelectorAll('.nav-item').forEach(function(item){
+    item.addEventListener('click', function(){
+      document.querySelectorAll('.nav-item').forEach(function(i){ i.classList.remove('active'); });
+      item.classList.add('active');
+    });
+  });
+
+  // Save button — simple feedback
+  var saveBtn = document.getElementById('saveBtn');
+  var original = saveBtn.textContent;
+  saveBtn.addEventListener('click', function(){
+    saveBtn.textContent = 'Saving…';
+    saveBtn.disabled = true;
+    setTimeout(function(){
+      saveBtn.textContent = '✓ Saved';
+      setTimeout(function(){
+        saveBtn.textContent = original;
+        saveBtn.disabled = false;
+      }, 1400);
+    }, 800);
+  });
+
+  // Live clock in the topbar
+  function updateClock(){
+    var el = document.querySelector('.datetime');
+    if (!el) return;
+    var now = new Date();
+    var days = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var dayName = days[now.getDay()];
+    var datePart = now.getDate();
+    var monthName = months[now.getMonth()];
+    var year = now.getFullYear();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var ampm = h >= 12 ? 'pm' : 'am';
+    var hh = h % 12 === 0 ? 12 : h % 12;
+    var mm = m < 10 ? '0'+m : m;
+    var ss = s < 10 ? '0'+s : s;
+    el.innerHTML = dayName + ' ' + datePart + ' ' + monthName + ', ' + year + '<br>' + hh + ':' + mm + ':' + ss + ampm;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+</body>
+</html>

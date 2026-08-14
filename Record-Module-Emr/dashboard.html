@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUTH EMR - Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="dashboard">
+  <div class="app-shell">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+          <div class="header-content">
+            <div class="logo">
+                <img src="img/Hospital_FUTH-logo (1).png" alt="FUTH logo">
+                <span class="logo-text">FUTH EMR</span>
+            </div>
+        </div>
+      <nav class="sidebar__nav">
+        <div class="nav-group">
+          <a class="nav-item active" data-page="dashboard" href="dashboard.html">
+            <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
+            Dashboard
+          </a>
+        </div>
+        <div class="nav-group">
+          <a class="nav-item" href="patient-management.html">
+            <span class="nav-icon"><i class="fa-solid fa-users"></i></span>
+            Patients
+          </a>
+        </div>
+        <div class="nav-group">
+          <a class="nav-item" href="book-appointment.html">
+            <span class="nav-icon"><i class="fa-regular fa-calendar-plus"></i></span>
+            Appointment
+          </a>
+        </div>
+        <div class="nav-group">
+          <a class="nav-item" href="queue-management.html">
+            <span class="nav-icon"><i class="fa-solid fa-clipboard-list"></i></span>
+            Queue Management
+          </a>
+        </div>
+        <div class="nav-group">
+          <a class="nav-item" href="schedule-configuration.html">
+            <span class="nav-icon"><i class="fa-regular fa-clock"></i></span>
+            Scheduling Configuration
+          </a>
+        </div>
+        <div class="nav-divider"></div>
+        <div class="nav-group">
+          <a class="nav-item" href="#">
+            <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
+            Settings
+          </a>
+        </div>
+        <div class="nav-group">
+          <a class="nav-item" href="#">
+            <span class="nav-icon"><i class="fa-regular fa-comment"></i></span>
+            Message
+          </a>
+        </div>
+        <div class="nav-group">
+          <a class="nav-item" href="#">
+            <span class="nav-icon"><i class="fa-regular fa-circle-question"></i></span>
+            Help Center
+          </a>
+        </div>
+        <div class="nav-group">
+          <a class="nav-item" href="#">
+            <span class="nav-icon"><i class="fa-solid fa-user-group"></i></span>
+            Support
+          </a>
+        </div>
+      </nav>
+      <div class="sidebar__footer">
+        <div class="user-avatar">
+          <img src="img/unsplash_7TI-3jUObYg.png" alt="User Avatar" class="user-avatar-img">
+        </div>
+        <div class="user-info">
+          <div class="user-name">Umar Farouk</div>
+          <div class="user-role">HOD Record</div>
+          <div class="user-status"><span class="status-dot"></span> Online</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <button class="topbar__menu-btn"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar__title">Dashboard</div>
+        </div>
+        <div class="topbar__center">
+          <div class="topbar__search">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search patients" />
+          </div>
+        </div>
+        <div class="topbar__right">
+          <button class="icon-btn">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge">3</span>
+          </button>
+          <div class="topbar__user">
+            <div class="user-avatar sm">UF</div>
+            <span style="font-size:13px; font-weight:500;">Umar Farouk</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+          <a href="dashboard.html">Home</a>
+          <span class="sep">›</span>
+          <span class="current">Dashboard</span>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header-wrap">
+          <div class="page-header">
+            <div>
+              <h1 class="page-header__title">Record Dashboard</h1>
+              <div class="page-header__subtitle">Overview of record department activities and key performance indicators</div>
+            </div>
+            <div class="page-header__actions">
+              <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Export Report</button>
+            </div>
+          </div>
+       
+
+        <!-- Filter bar -->
+        <div class="filter-bar">
+          <div class="form-icon-input">
+            <i class="fa-solid fa-building input-icon"></i>
+            <select class="form-control" style="min-width:140px;">
+              <option>Clinic</option>
+              <option>GOPD</option>
+              <option>Cardiology</option>
+              <option>Pediatrics</option>
+              <option>Ophthalmology</option>
+              <option>ENT</option>
+            </select>
+          </div>
+          <div class="form-icon-input">
+            <i class="fa-regular fa-calendar input-icon"></i>
+            <input type="datetime-local" class="form-control" placeholder="From" style="min-width:120px;" />
+          </div>
+          <div class="form-icon-input">
+            <i class="fa-regular fa-calendar input-icon"></i>
+            <input type="datetime-local" class="form-control" placeholder="To" style="min-width:120px;" />
+          </div>
+          <button class="btn btn-primary"><i class="fa-solid fa-sliders"></i> Apply Filters</button>
+          <button class="btn btn-outline"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="stat-grid cols-5" style="grid-template-columns: repeat(6, 1fr);">
+          <div class="stat-card">
+            <div class="stat-icon indigo"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Total Patients</div>
+              <div class="stat-value">2,345</div>
+              <div class="stat-footer">
+                <div class="stat-period">14 July-30 July</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon pink"><i class="fa-solid fa-user-plus"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">New Patient</div>
+              <div class="stat-value">1,345</div>
+              <div class="stat-footer">
+                <div class="stat-trend up"><i class="fa-solid fa-arrow-up"></i> 8.2%</div>
+                <div class="stat-period">14 July-30 July</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fa-solid fa-user-check"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Old Patient</div>
+              <div class="stat-value">1,000</div>
+              <div class="stat-footer">
+                <div class="stat-trend up"><i class="fa-solid fa-arrow-up"></i> 8.2%</div>
+                <div class="stat-period">14 July-30 July</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple" style="background: rgba(168, 85, 247, 0.15) !important;">
+              <span style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--purple); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; color: var(--purple);">A</span>
+            </div>
+            <div class="stat-body">
+              <div class="stat-label">Appointment</div>
+              <div class="stat-value">1,345</div>
+              <div class="stat-footer">
+                <div class="stat-trend up"><i class="fa-solid fa-arrow-up"></i> 8.2%</div>
+                <div class="stat-period">14 July-30 July</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange"><i class="fa-solid fa-hourglass-half"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Patient Queue</div>
+              <div class="stat-value">945</div>
+              <div class="stat-footer">
+                <div class="stat-trend down"><i class="fa-solid fa-arrow-down"></i> 8.2%</div>
+                <div class="stat-period">14 July-30 July</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Completed Visit</div>
+              <div class="stat-value">345</div>
+              <div class="stat-footer">
+                <div class="stat-trend up"><i class="fa-solid fa-arrow-up"></i> 8.2%</div>
+                <div class="stat-period">14 July-30 July</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+          <!-- Chart 1: Insured vs Private -->
+          <div class="card chart-card">
+            <div class="card-title">
+              Insured Vs Private Patients
+              <span class="top-right"><i class="fa-solid fa-ellipsis-vertical"></i></span>
+            </div>
+            <div class="donut-wrap">
+              <div class="donut" style="background: conic-gradient(#A855F7 0% 60%, #22C55E 60% 80%, #3B82F6 80% 100%);">
+                <div class="donut-center">
+                  <div class="num">4,234</div>
+                  <div>Total</div>
+                </div>
+              </div>
+              <div class="donut-legend">
+                <div class="donut-legend-item">
+                  <span class="swatch" style="background:#A855F7"></span>
+                  <span class="lbl">NHIA Patients</span>
+                  <span class="val">2,234 (50%)</span>
+                </div>
+                <div class="donut-legend-item">
+                  <span class="swatch" style="background:#22C55E"></span>
+                  <span class="lbl">Private Patients</span>
+                  <span class="val">1,700 (40%)</span>
+                </div>
+                <div class="donut-legend-item">
+                  <span class="swatch" style="background:#3B82F6"></span>
+                  <span class="lbl">NASHIA Patients</span>
+                  <span class="val">1,234 (10%)</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-footer">↑ 8.2% Increase in NHIA Patients</div>
+          </div>
+
+          <!-- Chart 2: Appointment Trend Line -->
+          <div class="card chart-card">
+            <div class="card-title">
+              Appointment Trend
+              <select class="chart-filter-select">
+                  <option>Daily</option>
+                <option>Weekly</option>
+                <option>Monthly</option>
+              </select>
+            </div>
+            <svg class="line-chart" viewBox="0 0 300 180" preserveAspectRatio="none">
+              <!-- grid lines -->
+              <line x1="30" y1="20" x2="290" y2="20" stroke="#F3F4F6" stroke-width="1"/>
+              <line x1="30" y1="60" x2="290" y2="60" stroke="#F3F4F6" stroke-width="1"/>
+              <line x1="30" y1="100" x2="290" y2="100" stroke="#F3F4F6" stroke-width="1"/>
+              <line x1="30" y1="140" x2="290" y2="140" stroke="#F3F4F6" stroke-width="1"/>
+              <!-- y-axis labels -->
+              <text x="5" y="24" font-size="9" fill="#9CA3AF">1200</text>
+              <text x="5" y="64" font-size="9" fill="#9CA3AF">900</text>
+              <text x="5" y="104" font-size="9" fill="#9CA3AF">600</text>
+              <text x="5" y="144" font-size="9" fill="#9CA3AF">300</text>
+              <!-- x-axis labels -->
+              <text x="40" y="160" font-size="9" fill="#9CA3AF">3 Aug</text>
+              <text x="78" y="160" font-size="9" fill="#9CA3AF">4 Aug</text>
+              <text x="116" y="160" font-size="9" fill="#9CA3AF">5 Aug</text>
+              <text x="154" y="160" font-size="9" fill="#9CA3AF">6 Aug</text>
+              <text x="192" y="160" font-size="9" fill="#9CA3AF">7 Aug</text>
+              <text x="230" y="160" font-size="9" fill="#9CA3AF">8 Aug</text>
+              <text x="262" y="160" font-size="9" fill="#9CA3AF">9 Aug</text>
+              <!-- Scheduled line (purple) -->
+              <polyline points="45,100 80,70 115,80 150,50 185,60 220,30 255,40" 
+                fill="none" stroke="#8B5CF6" stroke-width="2"/>
+              <g fill="#8B5CF6">
+                <circle cx="45" cy="100" r="3"/>
+                <circle cx="80" cy="70" r="3"/>
+                <circle cx="115" cy="80" r="3"/>
+                <circle cx="150" cy="50" r="3"/>
+                <circle cx="185" cy="60" r="3"/>
+                <circle cx="220" cy="30" r="3"/>
+                <circle cx="255" cy="40" r="3"/>
+              </g>
+              <!-- Completed line (lime) -->
+              <polyline points="45,120 80,100 115,110 150,80 185,90 220,60 255,70" 
+                fill="none" stroke="#84CC16" stroke-width="2"/>
+              <g fill="#84CC16">
+                <circle cx="45" cy="120" r="3"/>
+                <circle cx="80" cy="100" r="3"/>
+                <circle cx="115" cy="110" r="3"/>
+                <circle cx="150" cy="80" r="3"/>
+                <circle cx="185" cy="90" r="3"/>
+                <circle cx="220" cy="60" r="3"/>
+                <circle cx="255" cy="70" r="3"/>
+              </g>
+            </svg>
+            <div style="display:flex; gap:14px; font-size:11px; margin-top:8px; padding: 0 8px;">
+              <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:3px;background:#8B5CF6;border-radius:2px;"></span> Scheduled</span>
+              <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:3px;background:#84CC16;border-radius:2px;"></span> Completed</span>
+            </div>
+          </div>
+
+          <!-- Chart 3: Queue Overview Donut -->
+          <div class="card chart-card">
+            <div class="card-title">
+              Queue Overview
+              <span class="top-right">View Details</span>
+            </div>
+            <div class="donut-wrap">
+              <div class="donut" style="background: conic-gradient(#EC4899 0% 30%, #3B82F6 30% 50%, #22C55E 50% 80%, #EF4444 80% 100%);">
+                <div class="donut-center">
+                  <div class="num">1,345</div>
+                  <div>Total</div>
+                </div>
+              </div>
+              <div class="donut-legend">
+                <div class="donut-legend-item"><span class="swatch" style="background:#EC4899"></span><span class="lbl">Scheduled</span><span class="val">1,234</span></div>
+                <div class="donut-legend-item"><span class="swatch" style="background:#3B82F6"></span><span class="lbl">Checked-In</span><span class="val">734</span></div>
+                <div class="donut-legend-item"><span class="swatch" style="background:#22C55E"></span><span class="lbl">Completed</span><span class="val">234</span></div>
+                <div class="donut-legend-item"><span class="swatch" style="background:#EF4444"></span><span class="lbl">No-show</span><span class="val">34</span></div>
+              </div>
+            </div>
+            <div class="chart-footer">↑ 8.2% Completed appointment</div>
+          </div>
+
+          <!-- Chart 4: Patient by Clinic - horizontal bar -->
+          <div class="card chart-card">
+            <div class="card-title">
+              Patient by Clinic
+              <select class="chart-filter-select">
+                <option>All Clinic</option>
+                <option>Surgery</option>
+                <option>Ophthalmology</option>
+                <option>Gynaecology</option>
+                <option>Dental</option>
+                <option>ENT</option>
+                <option>Cardiology</option>
+                <option>GOPD</option>
+              </select>
+            </div>
+            <div class="bar-chart">
+              <div class="bar-chart-row"><span class="cat">Surgery</span><div class="bar-track"><div class="bar-fill" style="width:14%;"></div></div><span class="val">567</span></div>
+              <div class="bar-chart-row"><span class="cat">Ophthalmology</span><div class="bar-track"><div class="bar-fill" style="width:21%;"></div></div><span class="val">854</span></div>
+              <div class="bar-chart-row"><span class="cat">Gynaecology</span><div class="bar-track"><div class="bar-fill" style="width:31%;"></div></div><span class="val">1233</span></div>
+              <div class="bar-chart-row"><span class="cat">Dental</span><div class="bar-track"><div class="bar-fill" style="width:36%;"></div></div><span class="val">1450</span></div>
+              <div class="bar-chart-row"><span class="cat">ENT</span><div class="bar-track"><div class="bar-fill" style="width:46%;"></div></div><span class="val">1864</span></div>
+              <div class="bar-chart-row"><span class="cat">Cardiology</span><div class="bar-track"><div class="bar-fill" style="width:64%;"></div></div><span class="val">2545</span></div>
+              <div class="bar-chart-row"><span class="cat">GOPD</span><div class="bar-track"><div class="bar-fill" style="width:81%;"></div></div><span class="val">3245</span></div>
+            </div>
+          </div>
+
+          <!-- Chart 5: Folder Allocation donut -->
+          <div class="card chart-card">
+            <div class="card-title">
+              Folders Allocation
+              <span class="top-right">View Details</span>
+            </div>
+            <div class="donut-wrap">
+              <div class="donut" style="background: conic-gradient(#22C55E 0% 60%, #F59E0B 60% 100%);">
+                <div class="donut-center">
+                  <div class="num">1234</div>
+                  <div>Total</div>
+                </div>
+              </div>
+              <div class="donut-legend">
+                <div class="donut-legend-item"><span class="swatch" style="background:#22C55E"></span><span class="lbl">Allocated</span><span class="val">1,234 (80%)</span></div>
+                <div class="donut-legend-item"><span class="swatch" style="background:#F59E0B"></span><span class="lbl">Pending</span><span class="val">234 (20%)</span></div>
+              </div>
+            </div>
+            <div class="chart-footer">↑ 8.2% 12 July - 20 July</div>
+          </div>
+
+          <!-- Chart 6: Appointment overview grouped bar -->
+          <div class="card chart-card">
+            <div class="card-title">
+              Appointment overview
+              <select class="chart-filter-select">
+                <option>Weekly</option>
+                <option>Monthly</option>
+              </select>
+            </div>
+            <svg class="line-chart" viewBox="0 0 300 180" preserveAspectRatio="none" style="height:160px;">
+              <line x1="30" y1="20" x2="290" y2="20" stroke="#F3F4F6" stroke-width="1"/>
+              <line x1="30" y1="60" x2="290" y2="60" stroke="#F3F4F6" stroke-width="1"/>
+              <line x1="30" y1="100" x2="290" y2="100" stroke="#F3F4F6" stroke-width="1"/>
+              <line x1="30" y1="140" x2="290" y2="140" stroke="#F3F4F6" stroke-width="1"/>
+              <text x="5" y="24" font-size="9" fill="#9CA3AF">1200</text>
+              <text x="5" y="64" font-size="9" fill="#9CA3AF">900</text>
+              <text x="5" y="104" font-size="9" fill="#9CA3AF">600</text>
+              <text x="5" y="144" font-size="9" fill="#9CA3AF">300</text>
+              <!-- grouped bars -->
+              <g>
+                <rect x="40" y="100" width="10" height="40" fill="#818CF8"/>
+                <rect x="52" y="90" width="10" height="50" fill="#86EFAC"/>
+                <rect x="78" y="80" width="10" height="60" fill="#818CF8"/>
+                <rect x="90" y="70" width="10" height="70" fill="#86EFAC"/>
+                <rect x="116" y="90" width="10" height="50" fill="#818CF8"/>
+                <rect x="128" y="60" width="10" height="80" fill="#86EFAC"/>
+                <rect x="154" y="60" width="10" height="80" fill="#818CF8"/>
+                <rect x="166" y="50" width="10" height="90" fill="#86EFAC"/>
+                <rect x="192" y="50" width="10" height="90" fill="#818CF8"/>
+                <rect x="204" y="40" width="10" height="100" fill="#86EFAC"/>
+                <rect x="230" y="40" width="10" height="100" fill="#818CF8"/>
+                <rect x="242" y="30" width="10" height="110" fill="#86EFAC"/>
+                <rect x="268" y="30" width="10" height="110" fill="#818CF8"/>
+                <rect x="280" y="20" width="10" height="120" fill="#86EFAC"/>
+              </g>
+              <text x="42" y="160" font-size="9" fill="#9CA3AF">Aug 3</text>
+              <text x="80" y="160" font-size="9" fill="#9CA3AF">Aug 4</text>
+              <text x="118" y="160" font-size="9" fill="#9CA3AF">Aug 5</text>
+              <text x="156" y="160" font-size="9" fill="#9CA3AF">Aug 6</text>
+              <text x="194" y="160" font-size="9" fill="#9CA3AF">Aug 7</text>
+              <text x="232" y="160" font-size="9" fill="#9CA3AF">Aug 8</text>
+              <text x="266" y="160" font-size="9" fill="#9CA3AF">Aug 9</text>
+            </svg>
+            <div style="display:flex; gap:14px; font-size:11px; margin-top:8px; padding: 0 8px;">
+              <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;background:#818CF8;border-radius:2px;"></span> New Patient</span>
+              <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;background:#86EFAC;border-radius:2px;"></span> Returning Patient</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Section: Table + Wait + Activities -->
+        <div class="bottom-grid">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Clinic Performance</h3>
+            </div>
+            <div style="overflow-x:auto;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Clinic</th>
+                  <th>Total Patients</th>
+                  <th>New Patient</th>
+                  <th>Avg Wait Time</th>
+                  <th>Completed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cell-primary">GOPD</td>
+                  <td>576</td>
+                  <td>48</td>
+                  <td>28 mins</td>
+                  <td>78</td>
+                </tr>
+                <tr>
+                  <td class="cell-primary">Ophthalmology</td>
+                  <td>576</td>
+                  <td>48</td>
+                  <td>28 mins</td>
+                  <td>78</td>
+                </tr>
+                <tr>
+                  <td class="cell-primary">Cardiology</td>
+                  <td>576</td>
+                  <td>48</td>
+                  <td>28 mins</td>
+                  <td>78</td>
+                </tr>
+                <tr>
+                  <td class="cell-primary">Gynaecology</td>
+                  <td>576</td>
+                  <td>48</td>
+                  <td>28 mins</td>
+                  <td>78</td>
+                </tr>
+                 <tr>
+                  <td class="cell-primary">Gynaecology</td>
+                  <td>576</td>
+                  <td>48</td>
+                  <td>28 mins</td>
+                  <td>78</td>
+                </tr>
+                 <tr>
+                  <td class="cell-primary">Gynaecology</td>
+                  <td>576</td>
+                  <td>48</td>
+                  <td>28 mins</td>
+                  <td>78</td>
+                </tr>
+                 <tr>
+                  <td class="cell-primary">Gynaecology</td>
+                  <td>576</td>
+                  <td>48</td>
+                  <td>28 mins</td>
+                  <td>78</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <div style="padding:12px 16px;">
+              <a href="#" class="btn-link">View all Clinic Performance →</a>
+            </div>
+          </div>
+
+          <div class="card waiting-card" style="position:relative; overflow:hidden;">
+            <div style="position:absolute; right:-20px; top:-20px; width:120px; height:120px; border-radius:50%; background: var(--orange-light); opacity:0.5; pointer-events:none;"></div>
+            <div class="clock-icon" style="position:relative; z-index:1;"><i class="fa-regular fa-clock"></i></div>
+            <div class="waiting-metric" style="position:relative; z-index:1;">
+              <div class="lbl">Average Waiting Time</div>
+              <div class="val">32 mins</div>
+              <div class="sub"><span style="color: var(--red);">↓ 8.2%</span> <span style="color: var(--primary);">4 July - 20 July</span></div>
+            </div>
+            <div class="waiting-metric" style="position:relative; z-index:1;">
+              <div class="lbl">Longest Waiting Time</div>
+              <div class="val">83 mins</div>
+              <div class="sub" style="color: var(--text-secondary);">Surgery Clinic</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent activities</h3>
+            </div>
+            <div style="padding: 0 4px;">
+              <div class="activity-item">
+                <div class="activity-icon" style="background: var(--success-bg); color: var(--primary);"><i class="fa-regular fa-folder-open"></i></div>
+                <div class="activity-content">
+                  <div class="activity-text">Folder allocated</div>
+                  <div class="activity-meta">Aisha Muhammad • Gynaecology</div>
+                </div>
+                <div class="activity-time">11:15am</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background: var(--purple-light); color: var(--purple);"><i class="fa-regular fa-calendar-plus"></i></div>
+                <div class="activity-content">
+                  <div class="activity-text">Appointment Booking</div>
+                  <div class="activity-meta">Aisha Muhammad • Cardiology</div>
+                </div>
+                <div class="activity-time">10:15am</div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background: var(--orange-light); color: var(--orange-dark);"><i class="fa-solid fa-clipboard-list"></i></div>
+                <div class="activity-content">
+                  <div class="activity-text">Queue Updated</div>
+                  <div class="activity-meta">Aisha Muhammad • GOPD</div>
+                </div>
+                <div class="activity-time">09:15am</div>
+              </div>
+            </div>
+            <div style="padding:12px 16px;">
+              <a href="#" class="btn-link">View all Activities →</a>
+            </div>
+          </div>
+        </div>
+       </div>
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>

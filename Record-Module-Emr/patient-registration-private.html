@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUTH EMR - Patient Registration (Private)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://googleapis.com" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="patient-registration-private">
+  <div class="app-shell">
+    <aside class="sidebar">
+       <div class="header-content">
+            <div class="logo">
+                <img src="img/Hospital_FUTH-logo (1).png" alt="FUTH logo">
+                <span class="logo-text">FUTH EMR</span>
+            </div>
+        </div>
+      <nav class="sidebar__nav">
+        <div class="nav-group"><a class="nav-item" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a></div>
+        <div class="nav-group">
+          <div class="nav-item active"><span class="nav-icon"><i class="fa-solid fa-users"></i></span>Patients<span style="margin-left:auto;"><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></span></div>
+          <div class="nav-sub">
+            <a class="nav-sub-item" href="master-patient-index.html"><span class="dot"></span>Master Patient Index</a>
+            <a class="nav-sub-item" href="patient-management.html"><span class="dot"></span>Patient Management</a>
+            <a class="nav-sub-item active" data-page="patient-registration-private" href="patient-registration-private.html"><span class="dot"></span>Patient Registration</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-item"><span class="nav-icon"><i class="fa-regular fa-calendar-plus"></i></span>Appointment<span style="margin-left:auto;"><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></span></div>
+          <div class="nav-sub">
+            <a class="nav-sub-item" href="book-appointment.html"><span class="dot"></span>Book Appointment</a>
+            <a class="nav-sub-item" href="appointment-lists-1.html"><span class="dot"></span>Appointment Lists</a>
+          </div>
+        </div>
+        <div class="nav-group"><a class="nav-item" href="queue-management.html"><span class="nav-icon"><i class="fa-solid fa-clipboard-list"></i></span>Queue Management</a></div>
+        <div class="nav-group"><a class="nav-item" href="scheduling-configuration.html"><span class="nav-icon"><i class="fa-regular fa-clock"></i></span>Scheduling Configuration</a></div>
+        <div class="nav-divider"></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span>Settings</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-comment"></i></span>Message</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-circle-question"></i></span>Help Center</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-user-group"></i></span>Support</a></div>
+      </nav>
+      <div class="sidebar__footer">
+        <div class="user-avatar">UF</div>
+        <div class="user-info">
+          <div class="user-name">Umar Farouk</div>
+          <div class="user-role">Record Officer</div>
+          <div class="user-status"><span class="status-dot"></span> Online</div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar__left">
+          <button class="topbar__menu-btn"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar__title">Patients</div>
+        </div>
+        <div class="topbar__center">
+          <div class="topbar__search">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search patients" />
+          </div>
+        </div>
+        <div class="topbar__right">
+          <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+          <div class="topbar__user">
+            <div class="user-avatar sm">UF</div>
+            <span style="font-size:13px; font-weight:500;">Umar Farouk</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="breadcrumb">
+          <a href="dashboard.html">Home</a><span class="sep">›</span>
+          <a href="#">Patients</a><span class="sep">›</span>
+          <span class="current">Patient Registration</span>
+        </div>
+
+        <div class="page-header-wrap">
+
+       
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-header__title">Patient Registration</h1>
+            <div class="page-header__subtitle">Register new patient in EMR system</div>
+          </div>
+        </div>
+
+        <!-- Section 1: Patient Type -->
+        <div class="card" style="margin-bottom:16px;">
+          <div class="section-numbered">
+            <div class="section-number">1</div>
+            <div class="section-title-text">Patient Type</div>
+          </div>
+          <div class="radio-group" style="margin-top:14px;">
+            <label class="radio-card selected">
+              <input type="radio" name="ptype" checked />
+              <span class="radio-dot"></span>
+              Private (Self pay)
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="ptype" />
+              <span class="radio-dot"></span>
+              NHIA
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="ptype" />
+              <span class="radio-dot"></span>
+              NASHIA
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="ptype" />
+              <span class="radio-dot"></span>
+              Retainership
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="ptype" />
+              <span class="radio-dot"></span>
+              Corporate
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="ptype" />
+              <span class="radio-dot"></span>
+              Other Insurance
+            </label>
+          </div>
+          <div style="margin-top:10px;">
+            <a href="patient-registration-nhia.html" class="btn btn-link">→ Switch to NHIA registration form</a>
+          </div>
+        </div>
+
+        <!-- Section 2: Personal Information -->
+        <div class="card" style="margin-bottom:16px;">
+          <div class="section-numbered">
+            <div class="section-number">2</div>
+            <div class="section-title-text">Personal Information</div>
+          </div>
+          <div style="display:flex; gap:24px; margin-top:14px;">
+            <div class="photo-upload">
+              <i class="fa-regular fa-user"></i>
+              <div class="label-text">Upload Photo</div>
+              <i class="fa-solid fa-camera" style="font-size:13px;"></i>
+              <div class="hint">PNG, JPG (Max 2MB)</div>
+            </div>
+            <div style="flex:1;">
+              <div class="form-grid cols-3">
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Hosp No</label>
+                  <input type="text" class="form-control" value="HOS-2525-0000245" readonly />
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">UPI</label>
+                  <input type="text" class="form-control" value="UPI-2525-0000245" />
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">NIN</label>
+                  <input type="text" class="form-control" value="64595743679" />
+                </div>
+              </div>
+              <div class="form-grid cols-3" style="margin-top:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Title</label>
+                  <select class="form-control"><option>Mrs</option><option>Mr</option><option>Miss</option><option>Dr</option></select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Surname</label>
+                  <input type="text" class="form-control" value="Usman" />
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">First Name</label>
+                  <input type="text" class="form-control" value="Zainab" />
+                </div>
+              </div>
+              <div class="form-grid cols-4" style="margin-top:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Other Name</label>
+                  <input type="text" class="form-control" value="Isah" />
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Gender</label>
+                  <select class="form-control"><option>Female</option><option>Male</option></select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Date of Birth</label>
+                  <div class="form-icon-input">
+                    <i class="fa-regular fa-calendar input-icon"></i>
+                    <input type="datetime-local" class="form-control" value="12-05-2000" />
+                  </div>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Age</label>
+                  <input type="text" class="form-control" value="26 years" readonly />
+                </div>
+              </div>
+              <div class="form-grid cols-4" style="margin-top:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Marital Status</label>
+                  <select class="form-control"><option>Married</option><option>Single</option><option>Divorced</option><option>Widowed</option></select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Occupation</label>
+                  <input type="text" class="form-control" value="Architect" />
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Genotype</label>
+                  <select class="form-control"><option>AA</option><option>AS</option><option>SS</option><option>AC</option></select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Blood Group</label>
+                  <select class="form-control"><option>O+</option><option>A+</option><option>B+</option><option>AB+</option></select>
+                </div>
+              </div>
+              <div class="form-grid cols-2" style="margin-top:14px;">
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Religion</label>
+                  <select class="form-control"><option>Islam</option><option>Christianity</option><option>Traditional</option><option>Other</option></select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label">Phone Number</label>
+                  <div class="phone-input">
+                    <div class="country-code"><i class="fa-solid fa-flag"></i> +234</div>
+                    <input type="text" class="form-control" value="847475856" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Contact Information -->
+        <div class="card" style="margin-bottom:16px;">
+          <div class="section-numbered">
+            <div class="section-number">3</div>
+            <div class="section-title-text">Contact Information</div>
+          </div>
+          <div class="form-grid cols-4" style="margin-top:14px;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Nationality</label>
+              <select class="form-control"><option>Nigeria</option></select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">State</label>
+              <select class="form-control"><option>Nasarawa</option></select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">LGA</label>
+              <select class="form-control"><option>Lafia</option></select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">City</label>
+              <input type="text" class="form-control" value="Lafia" />
+            </div>
+          </div>
+          <div class="form-grid cols-3" style="margin-top:14px;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Postal Code</label>
+              <input type="text" class="form-control" value="P183839" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-control" value="zainabusman@gmail.com" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Residential Address</label>
+              <textarea class="form-control" rows="2">House 98, Boulevard Crescent, Aminu Kano Street, Jabi, Abuja</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Biometrics -->
+        <div class="card" style="margin-bottom:16px;">
+          <div class="section-numbered">
+            <div class="section-number">3</div>
+            <div class="section-title-text">Biometrics Identification</div>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; margin-top:14px;">
+            <div>
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">Thumbprint Capture</div>
+              <div class="fingerprint-box">
+                <div class="scan-corner tl"></div>
+                <div class="scan-corner tr"></div>
+                <div class="scan-corner bl"></div>
+                <div class="scan-corner br"></div>
+                <div class="fingerprint-icon"></div>
+                <div style="width:80%;">
+                  <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px;">
+                    <span>Scanning...</span><span>100%</span>
+                  </div>
+                  <div class="progress"><div class="progress-bar" style="width:100%;"></div></div>
+                </div>
+              </div>
+              <button class="btn btn-success-outline btn-block" style="margin-top:12px; width:300px;margin-left: 100px;">
+                <i class="fa-solid fa-plus"></i> Capture Thumbprint
+              </button>
+            </div>
+            <div>
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">Capture Status</div>
+              <div style="border:1px solid var(--border-light); border-radius:var(--r-md); padding:14px; height: 210px;">
+                <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px;">
+                  <span style="color:var(--text-muted);">Status:</span>
+                  <span>Scan Successful <span class="badge badge-success">Captured</span></span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px;">
+                  <span style="color:var(--text-muted);">Thumb:</span><span>Right</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding:6px 0; font-size:13px;">
+                  <span style="color:var(--text-muted);">Capture Quality:</span><span>Good</span>
+                </div>
+                <div class="alert alert-info" style="margin-top:10px; padding:10px; width:fit-content">
+                  <i class="fa-solid fa-circle-info alert-icon"></i>
+                  <div class="alert-content" style="font-size:12px; margin-top: 10px;">Capture biometrics to prevent  duplicate<br> records and verify patient identity</div>
+                </div>
+                
+              </div>
+              <button class="btn btn-danger-outline btn-block" style="margin-top:10px; width:300px;margin-left: 100px; margin-top: 10px;">
+                  <i class="fa-solid fa-xmark"></i> Clear
+                </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Next of Kin -->
+        <div class="card" style="margin-bottom:16px;">
+          <div class="section-numbered">
+            <div class="section-number">4</div>
+            <div class="section-title-text">Next Of Kin</div>
+          </div>
+          <div class="form-grid cols-4" style="margin-top:14px;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Surname</label>
+              <input type="text" class="form-control" value="Yusuf" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-control" value="Aisha" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Other Name</label>
+              <input type="text" class="form-control" value="Abubakar" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Relationship</label>
+              <select class="form-control"><option>Mother</option><option>Father</option><option>Spouse</option><option>Sibling</option></select>
+            </div>
+          </div>
+          <div class="form-grid cols-3" style="margin-top:14px;">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Phone Number</label>
+              <input type="text" class="form-control" value="+234 8093738833" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-control" value="aishayusuf@gmail.com" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Residential Address</label>
+              <textarea class="form-control" rows="2">House 98, Boulevard Crescent, Aminu Kano Street, Jabi, Abuja</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+      <div style="display:flex; justify-content:flex-start; gap:10px; margin-bottom:20px;">
+          <button class="btn btn-danger-outline"><i class="fa-solid fa-xmark"></i> Cancel</button>
+          <button class="btn btn-success-outline"><i class="fa-regular fa-floppy-disk"></i> Save Draft</button>
+
+        </div>
+        <div style="display:flex; justify-content:flex-end; margin-top:-60px;">
+            <button class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Register Patient</button>
+        </div>
+         </div>
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>

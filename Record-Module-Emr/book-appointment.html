@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUTH EMR - Book Appointment</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .appt-grid { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    @media (max-width: 900px) { .appt-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-page="book-appointment">
+  <div class="app-shell">
+    <aside class="sidebar">
+       <div class="header-content">
+            <div class="logo">
+                <img src="img/Hospital_FUTH-logo (1).png" alt="FUTH logo">
+                <span class="logo-text">FUTH EMR</span>
+            </div>
+        </div>
+      <nav class="sidebar__nav">
+        <div class="nav-group"><a class="nav-item" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a></div>
+        <div class="nav-group">
+          <div class="nav-item"><span class="nav-icon"><i class="fa-solid fa-users"></i></span>Patients<span style="margin-left:auto;"><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></span></div>
+          <div class="nav-sub">
+            <a class="nav-sub-item" href="master-patient-index.html"><span class="dot"></span>Master Patient Index</a>
+            <a class="nav-sub-item" href="patient-management.html"><span class="dot"></span>Patient Management</a>
+            <a class="nav-sub-item" href="patient-registration-private.html"><span class="dot"></span>Patient Registration</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-item active"><span class="nav-icon"><i class="fa-regular fa-calendar-plus"></i></span>Appointment<span style="margin-left:auto;"><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></span></div>
+          <div class="nav-sub">
+            <a class="nav-sub-item active" data-page="book-appointment" href="book-appointment.html"><span class="dot"></span>Book Appointment</a>
+            <a class="nav-sub-item" data-page="appointment-lists-1" href="appointment-lists-1.html"><span class="dot"></span>Appointment Lists</a>
+          </div>
+        </div>
+        <div class="nav-group"><a class="nav-item" href="queue-management.html"><span class="nav-icon"><i class="fa-solid fa-clipboard-list"></i></span>Queue Management</a></div>
+        <div class="nav-group"><a class="nav-item" href="schedule-configuration.html"><span class="nav-icon"><i class="fa-regular fa-clock"></i></span>Scheduling Configuration</a></div>
+        <div class="nav-divider"></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span>Settings</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-comment"></i></span>Message</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-circle-question"></i></span>Help Center</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-user-group"></i></span>Support</a></div>
+      </nav>
+      <div class="sidebar__footer">
+        <div class="user-avatar">UF</div>
+        <div class="user-info">
+          <div class="user-name">Umar Farouk</div>
+          <div class="user-role">HOD Record</div>
+          <div class="user-status"><span class="status-dot"></span> Online</div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar__left">
+          <button class="topbar__menu-btn"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar__title">Appointment</div>
+        </div>
+        <div class="topbar__center">
+          <div class="topbar__search">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search patients" />
+          </div>
+        </div>
+        <div class="topbar__right">
+          <div class="topbar__datetime">
+            Thur 12 May, 2026<br><span class="time">9:00:12am</span>
+          </div>
+          <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button>
+          <div class="topbar__user">
+            <div class="user-avatar sm">UF</div>
+            <span style="font-size:13px; font-weight:500;">Umar Farouk</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="breadcrumb">
+          <a href="dashboard.html">Home</a><span class="sep">›</span>
+          <a href="#">Appointment</a><span class="sep">›</span>
+          <span class="current">Book Appointment</span>
+        </div>
+
+        <div class="page-header-wrap">
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-header__title">New Appointment</h1>
+            <div class="page-header__subtitle">Schedule new appointment for patients</div>
+          </div>
+        </div>
+
+        <div class="appt-grid">
+          <!-- Left Column -->
+          <div>
+            <!-- Step 1: Patient Information -->
+            <div class="card" style="margin-bottom:16px;">
+              <div class="section-numbered">
+                <div class="section-number">1</div>
+                <div class="section-title-text">Patient Information</div>
+              </div>
+              <div style="margin-top:14px;">
+                <label class="form-label">Search patients <span class="req">*</span></label>
+                <div style="display:flex; gap:8px;">
+                  <div class="form-icon-input" style="flex:1;">
+                    <i class="fa-solid fa-magnifying-glass input-icon"></i>
+                    <input type="text" class="form-control" placeholder="Search by name, NIN, Hosp No..." />
+                  </div>
+                  <a href="patient-registration-private.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Patient</a>
+                </div>
+
+                <!-- Selected patient card -->
+                <div class="patient-result-card" style="margin-top:12px;">
+                  <div class="user-avatar lg" style="background:linear-gradient(135deg,#3B82F6,#1D4ED8);">FM</div>
+                  <div class="meta">
+                    <div class="name">Fahad Muhammad
+                      <span class="badge badge-success" style="margin-left:8px;">NHS</span>
+                    </div>
+                    <div class="row1">Hosp No: 0001 • Male • 32 yrs</div>
+                    <div class="row2">muhadfahad@gmail.com • 0090343433434</div>
+                  </div>
+                  <button class="btn btn-success-outline">View Profile</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Appointment Details -->
+            <div class="card" style="margin-bottom:16px;">
+              <div class="section-numbered">
+                <div class="section-number">2</div>
+                <div class="section-title-text">Appointment Details</div>
+              </div>
+              <div class="form-group" style="margin-top:14px;">
+                <label class="form-label">Appointment Type</label>
+                <select class="form-control"><option>Follow up</option><option>New</option><option>Consultation</option></select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Visit Type</label>
+                <select class="form-control"><option>Outpatient</option><option>Inpatient</option><option>Emergency</option></select>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Reason for visit</label>
+                <textarea class="form-control" placeholder="Enter reason for visit or complaint" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div>
+            <!-- Step 3: Appointment Date and Time -->
+            <div class="card" style="margin-bottom:16px;">
+              <div class="section-numbered">
+                <div class="section-number">3</div>
+                <div class="section-title-text">Appointment Date and Time</div>
+              </div>
+              <div class="form-group" style="margin-top:14px;">
+                <label class="form-label">Appointment Date</label>
+                <div class="form-icon-input">
+                  <i class="fa-regular fa-calendar input-icon"></i>
+                  <input type="text" class="form-control" value="2026-08-09" />
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Time Slot</label>
+                <div class="form-icon-input">
+                  <i class="fa-regular fa-clock input-icon"></i>
+                  <select class="form-control"><option>11:30</option><option>09:00</option><option>10:00</option></select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4: Clinic Provider -->
+            <div class="card" style="margin-bottom:16px;">
+              <div class="section-numbered">
+                <div class="section-number">4</div>
+                <div class="section-title-text">Clinic Provider</div>
+              </div>
+              <div class="form-group" style="margin-top:14px;">
+                <label class="form-label">Clinic Name</label>
+                <select class="form-control"><option>Cardiology</option><option>GOPD</option><option>Gynaecology</option></select>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label">Doctor</label>
+                <select class="form-control"><option>Dr Amna Fareed</option><option>Dr Aliyu Isa</option><option>Dr Ahmad Shu'aib</option></select>
+              </div>
+            </div>
+
+            <!-- Step 5: Notification and Reminder -->
+            <div class="card">
+              <div class="section-numbered">
+                <div class="section-number">5</div>
+                <div class="section-title-text">Notification and Reminder</div>
+              </div>
+              <div style="margin-top:14px;">
+                <label class="form-label">Sent Notification to</label>
+                <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:14px;">
+                  <label class="checkbox">
+                    <input type="checkbox" checked /><span class="check-box"></span>
+                    SMS to 09034343434
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" checked /><span class="check-box"></span>
+                    Email to fahadmuhammad@gmail.com
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" checked /><span class="check-box"></span>
+                    In-App Notification
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Reminder</label>
+                  <select class="form-control"><option>24hrs</option><option>1hr</option><option>30mins</option></select>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label">Custom Message</label>
+                  <textarea class="form-control" placeholder="Add custom message" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div style="display:flex; justify-content:flex-end; margin-top:16px; margin-bottom:20px;">
+          <button class="btn btn-primary btn-lg"><i class="fa-regular fa-calendar-check"></i> Schedule Appointment</button>
+        </div>
+       </div>
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>

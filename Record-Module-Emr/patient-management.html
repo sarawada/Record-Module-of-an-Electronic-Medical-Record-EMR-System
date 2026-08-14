@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUTH EMR - Patient Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="patient-management">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="header-content">
+            <div class="logo">
+                <img src="img/Hospital_FUTH-logo (1).png" alt="FUTH logo">
+                <span class="logo-text">FUTH EMR</span>
+            </div>
+        </div>
+      <nav class="sidebar__nav">
+        <div class="nav-group"><a class="nav-item" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a></div>
+        <div class="nav-group">
+          <div class="nav-item active"><span class="nav-icon"><i class="fa-solid fa-users"></i></span>Patients<span style="margin-left:auto;"><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></span></div>
+          <div class="nav-sub">
+            <a class="nav-sub-item" href="master-patient-index.html"><span class="dot"></span>Master Patient Index</a>
+            <a class="nav-sub-item active" data-page="patient-management" href="patient-management.html"><span class="dot"></span>Patient Management</a>
+            <a class="nav-sub-item" href="patient-registration-private.html"><span class="dot"></span>Patient Registration</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-item"><span class="nav-icon"><i class="fa-regular fa-calendar-plus"></i></span>Appointment<span style="margin-left:auto;"><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></span></div>
+          <div class="nav-sub">
+            <a class="nav-sub-item" href="book-appointment.html"><span class="dot"></span>Book Appointment</a>
+            <a class="nav-sub-item" href="appointment-lists-1.html"><span class="dot"></span>Appointment Lists</a>
+          </div>
+        </div>
+        <div class="nav-group"><a class="nav-item" href="queue-management.html"><span class="nav-icon"><i class="fa-solid fa-clipboard-list"></i></span>Queue Management</a></div>
+        <div class="nav-group"><a class="nav-item" href="schedule-configuration.html"><span class="nav-icon"><i class="fa-regular fa-clock"></i></span>Scheduling Configuration</a></div>
+        <div class="nav-divider"></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span>Settings</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-comment"></i></span>Message</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-circle-question"></i></span>Help Center</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-user-group"></i></span>Support</a></div>
+      </nav>
+      <div class="sidebar__footer">
+        <div class="user-avatar">UF</div>
+        <div class="user-info">
+          <div class="user-name">Umar Farouk</div>
+          <div class="user-role">Record Officer</div>
+          <div class="user-status"><span class="status-dot"></span> Online</div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar__left">
+          <button class="topbar__menu-btn"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar__title">Patients</div>
+        </div>
+        <div class="topbar__center">
+          <div class="topbar__search">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search patients" />
+          </div>
+        </div>
+        <div class="topbar__right">
+          <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+          <div class="topbar__user">
+            <div class="user-avatar sm">UF</div>
+            <span style="font-size:13px; font-weight:500;">Umar Farouk</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="breadcrumb">
+          <a href="dashboard.html">Home</a><span class="sep">›</span>
+          <a href="#">Patients</a><span class="sep">›</span>
+          <span class="current">Patient Management</span>
+        </div>
+
+        <div class="page-header-wrap">
+        <!-- Stat cards -->
+        <div class="stat-grid cols-5">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Total Patients</div>
+              <div class="stat-value" style="color: var(--blue);">2389</div>
+              <div class="stat-sub">All Time</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Total Patients</div>
+              <div class="stat-value" style="color: var(--blue);">148</div>
+              <div class="stat-sub" style="margin-left:-30px; display: flex; flex-direction: row; gap: 8px;">
+               <i class="fa-solid fa-user-plus" style="color:#3B82F6"></i> <span>New</span> <p class="blue" style="color: var(--blue); font-weight:600;margin-left:-25px;margin-top: 15px;">48</p> &nbsp;
+               <i class="fa-solid fa-user-check" style="color: #A855F7;"></i> Returning: <p style="color: var(--pink); font-weight:600;margin-left:-40px;margin-top: 15px;">100</p>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fa-regular fa-calendar-check"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Appointments</div>
+              <div class="stat-value" style="color: var(--blue);">50</div>
+              <div class="stat-sub">Today</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange"><i class="fa-regular fa-clock"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Scheduled</div>
+              <div class="stat-value" style="color: var(--orange-dark);">50</div>
+              <div class="stat-sub">Today</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon pink"><i class="fa-solid fa-folder"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Folders Allocated</div>
+              <div class="stat-value" style="color: var(--pink);">238</div>
+              <div class="stat-sub">62% of total patients</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Patient list card -->
+        <div class="card">
+          <div class="card-header" style="flex-wrap:wrap; gap:12px;">
+            <h3 class="card-title">Patient List</h3>
+            <div style="display:flex; flex-direction: row ;gap:8px; align-items:center;">
+              <select class="form-control" style="height:36px; min-width:160px;">
+                <option>All Departments</option>
+                <option>GOPD</option><option>Cardiology</option><option>Gynaecology</option>
+              </select>
+              <select class="form-control" style="height:36px; min-width:130px;">
+                <option>All Status</option><option>Active</option><option>Inactive</option>
+              </select>
+              <button class="btn btn-outline"><i class="fa-solid fa-sliders"></i> More Filters</button>
+              <a href="master-patient-index.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Registration</a>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; align-items:center; padding: 0 0 14px; flex-wrap:wrap;">
+            <div class="form-icon-input" style="flex:1; min-width:200px;">
+              <i class="fa-solid fa-magnifying-glass input-icon"></i>
+              <input type="text" class="form-control" placeholder="Search by NIN, Hosp No, surname, phone no" />
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span style="font-size:12px; color:var(--text-muted);">Show</span>
+              <select class="form-control" style="height:32px; width:60px; padding:0 8px;">
+                <option>10</option><option>25</option><option>50</option>
+              </select>
+              <span style="font-size:12px; color:var(--text-muted);">Entries</span>
+              <button class="icon-btn"><i class="fa-solid fa-download"></i></button>
+            </div>
+          </div>
+
+          <div style="overflow-x:auto;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>No</th><th>Hosp No</th><th>Name</th><th>Age</th><th>Gender</th>
+                <th>Phone</th><th>Clinic</th><th>Last Visit</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td><td>00001</td><td class="cell-primary">Anna Shualb</td>
+                <td style="text-align:center;">35</td><td style="text-align:center;">Female</td>
+                <td>08034444444</td><td>GOPD</td><td>2026-06-04</td>
+                <td style="text-align:center;"><span class="badge badge-success">Active</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td><td>12567</td><td class="cell-primary">Muhammad Khalid</td>
+                <td style="text-align:center;">42</td><td style="text-align:center;">Male</td>
+                <td>08037839201</td><td>Cardiology</td><td>2026-06-03</td>
+                <td style="text-align:center;"><span class="badge badge-danger">Inactive</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td><td>00002</td><td class="cell-primary">Aisha Musa</td>
+                <td style="text-align:center;">28</td><td style="text-align:center;">Female</td>
+                <td>0809283938</td><td>GOPD</td><td>2026-06-01</td>
+                <td style="text-align:center;"><span class="badge badge-success">Active</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td><td>00003</td><td class="cell-primary">Yusuf Ibrahim</td>
+                <td style="text-align:center;">54</td><td style="text-align:center;">Male</td>
+                <td>08052341987</td><td>Ophthalmology</td><td>2026-05-30</td>
+                <td style="text-align:center;"><span class="badge badge-success">Active</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td><td>00004</td><td class="cell-primary">Fatima Bello</td>
+                <td style="text-align:center;">31</td><td style="text-align:center;">Female</td>
+                <td>08061239847</td><td>Gynaecology</td><td>2026-05-29</td>
+                <td style="text-align:center;"><span class="badge badge-success">Active</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>6</td><td>00005</td><td class="cell-primary">Ahmed Suleiman</td>
+                <td style="text-align:center;">47</td><td style="text-align:center;">Male</td>
+                <td>08074512938</td><td>Surgery</td><td>2026-05-28</td>
+                <td style="text-align:center;"><span class="badge badge-danger">Inactive</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>7</td><td>00006</td><td class="cell-primary">Hauwa Mohammed</td>
+                <td style="text-align:center;">22</td><td style="text-align:center;">Female</td>
+                <td>08081237645</td><td>Dental</td><td>2026-05-27</td>
+                <td style="text-align:center;"><span class="badge badge-success">Active</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>8</td><td>00007</td><td class="cell-primary">Chinedu Okafor</td>
+                <td style="text-align:center;">39</td><td style="text-align:center;">Male</td>
+                <td>08099871234</td><td>ENT</td><td>2026-05-26</td>
+                <td style="text-align:center;"><span class="badge badge-success">Active</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>9</td><td>00008</td><td class="cell-primary">Maryam Yusuf</td>
+                <td style="text-align:center;">19</td><td style="text-align:center;">Female</td>
+                <td>08064572198</td><td>GOPD</td><td>2026-05-25</td>
+                <td style="text-align:center;"><span class="badge badge-success">Active</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>10</td><td>00009</td><td class="cell-primary">Tunde Adeyemi</td>
+                <td style="text-align:center;">56</td><td style="text-align:center;">Male</td>
+                <td>08031249856</td><td>Cardiology</td><td>2026-05-24</td>
+                <td style="text-align:center;"><span class="badge badge-danger">Inactive</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+
+          <div class="pagination">
+            <div>Showing 1 to 10 of 2,345 entries</div>
+            <div class="pagination__pages">
+              <button class="page-btn"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn">4</button>
+              <button class="page-btn">…</button>
+              <button class="page-btn">234</button>
+              <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+          </div>
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>

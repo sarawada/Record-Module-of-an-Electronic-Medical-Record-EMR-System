@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUTH EMR - Check-in Patient</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .queue-layout { display:grid; grid-template-columns: 1fr 320px; gap:16px; align-items:flex-start; }
+    @media (max-width: 1100px) { .queue-layout { grid-template-columns: 1fr; } }
+    .info-row { display:flex; justify-content:space-between; padding:7px 0; font-size:12px; border-bottom: 1px solid var(--border-light); }
+    .info-row:last-child { border-bottom:none; }
+    .info-row .lbl { color: var(--text-muted); }
+    .info-row .val { font-weight:600; color: var(--text-primary); }
+    .step-badge { width:24px; height:24px; border-radius:50%; background: var(--primary); color:#fff; font-size:12px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
+    .step-header { display:flex; align-items:center; gap:10px; margin-bottom:14px; font-weight:600; font-size:14px; color: var(--text-primary); }
+    .patient-detail-row { display:flex; gap:10px; padding:6px 0; font-size:12px; }
+    .patient-detail-row i { color: var(--text-muted); width:14px; }
+    .patient-detail-row .lbl { color: var(--text-muted); }
+    .radio-simple { display:flex; align-items:center; gap:6px; padding:8px 12px; border:1px solid var(--border-medium); border-radius: var(--r-md); font-size:12px; cursor:pointer; }
+    .radio-simple.selected { border-color: var(--primary); color: var(--primary); background: var(--primary-lighter); }
+    .radio-simple .dot { width:14px; height:14px; border-radius:50%; border:2px solid var(--border-medium); }
+    .radio-simple.selected .dot { border-color: var(--primary); background: var(--primary); }
+  </style>
+</head>
+<body data-page="queue-checkin">
+  <div class="app-shell">
+    <aside class="sidebar">
+       <div class="header-content">
+            <div class="logo">
+                <img src="img/Hospital_FUTH-logo (1).png" alt="FUTH logo">
+                <span class="logo-text">FUTH EMR</span>
+            </div>
+        </div>
+      <nav class="sidebar__nav">
+        <div class="nav-group"><a class="nav-item" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a></div>
+        <div class="nav-group"><a class="nav-item" href="patient-management.html"><span class="nav-icon"><i class="fa-solid fa-users"></i></span>Patients</a></div>
+        <div class="nav-group"><a class="nav-item" href="book-appointment.html"><span class="nav-icon"><i class="fa-regular fa-calendar-plus"></i></span>Appointment</a></div>
+        <div class="nav-group"><a class="nav-item active" href="queue-management.html"><span class="nav-icon"><i class="fa-solid fa-clipboard-list"></i></span>Queue Management</a></div>
+        <div class="nav-group"><a class="nav-item" href="schedule-configuration.html"><span class="nav-icon"><i class="fa-regular fa-clock"></i></span>Scheduling Configuration</a></div>
+        <div class="nav-divider"></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span>Settings</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-comment"></i></span>Message</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-circle-question"></i></span>Help Center</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-user-group"></i></span>Support</a></div>
+      </nav>
+      <div class="sidebar__footer">
+        <div class="user-avatar">UF</div>
+        <div class="user-info">
+          <div class="user-name">Umar Farouk</div>
+          <div class="user-role">Record Officer</div>
+          <div class="user-status"><span class="status-dot"></span> Online</div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar__left">
+          <button class="topbar__menu-btn"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar__title">Patients</div>
+        </div>
+        <div class="topbar__center">
+          <div class="topbar__search">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search patients" />
+          </div>
+        </div>
+        <div class="topbar__right">
+          <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+          <div class="topbar__user">
+            <div class="user-avatar sm">UF</div>
+            <span style="font-size:13px; font-weight:500;">Umar Farouk</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="breadcrumb">
+          <a href="dashboard.html">Home</a><span class="sep">›</span>
+          <span class="current">Queue Management</span>
+        </div>
+
+        <div class="page-header">
+          <div>
+            <h1 class="page-header__title">Queue Management</h1>
+            <div class="page-header__subtitle">Monitor patient flow and manage queues across clinics</div>
+          </div>
+          <div class="page-header__actions">
+            <a href="queue-checkin.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Check In Patient</a>
+          </div>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="stat-grid cols-5">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Total in Queue</div>
+              <div class="stat-value" style="color: var(--blue);">2389</div>
+              <div class="stat-sub">Patients</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange"><i class="fa-solid fa-hourglass-half"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Waiting</div>
+              <div class="stat-value" style="color: var(--orange-dark);">50</div>
+              <div class="stat-sub">Avg Wait time: 28mins</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon pink"><i class="fa-solid fa-stethoscope"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">In Consultation</div>
+              <div class="stat-value" style="color: var(--pink);">50</div>
+              <div class="stat-sub">Today</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Completed</div>
+              <div class="stat-value" style="color: var(--primary);">50</div>
+              <div class="stat-sub">Today</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red"><i class="fa-solid fa-circle-xmark"></i></div>
+            <div class="stat-body">
+              <div class="stat-label">Missed</div>
+              <div class="stat-value" style="color: var(--red);">50</div>
+              <div class="stat-sub">Today</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="queue-layout">
+          <!-- Main Queue Table -->
+          <div class="card" style="padding:0;">
+            <div class="tabs">
+              <div class="tab active">All (289)</div>
+              <div class="tab">New (345)</div>
+              <div class="tab">Returning (124)</div>
+            </div>
+            <div style="padding:14px 16px; display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--border-light); align-items:center;">
+              <div class="form-icon-input" style="flex:1; min-width:200px;">
+                <i class="fa-solid fa-magnifying-glass input-icon"></i>
+                <input type="text" class="form-control" placeholder="Search by NIN, Hosp No, surname,phone no" />
+              </div>
+              <select class="form-control" style="height:36px; min-width:130px;">
+                <option>All Status</option><option>Waiting</option><option>Completed</option><option>Missed</option>
+              </select>
+              <button class="btn btn-success-outline"><i class="fa-solid fa-rotate"></i> Refresh</button>
+            </div>
+            <div style="overflow-x:auto;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Queue No</th><th>Hosp No</th><th>Name</th><th>Doctor</th>
+                  <th>Arrival Time</th><th>Type</th><th>Status</th><th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>GOPD-001</td><td>02134</td>
+                  <td><div class="cell-primary">Zainab Usman</div><div class="cell-secondary">NIN: 467473844</div></td>
+                  <td>Dr Aliyu Isa</td><td>8:36</td><td>New</td>
+                  <td><span class="badge badge-pink">High Priority</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                      <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                      <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                      <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>GOPD-002</td><td>02134</td>
+                  <td><div class="cell-primary">Zainab Usman</div><div class="cell-secondary">NIN: 467473844</div></td>
+                  <td>Dr Aliyu Isa</td><td>8:45</td><td>Returning</td>
+                  <td><span class="badge badge-warning">Waiting</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                      <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                      <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                      <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>GOPD-003</td><td>02134</td>
+                  <td><div class="cell-primary">Zainab Usman</div><div class="cell-secondary">NIN: 467473844</div></td>
+                  <td>Dr Aliyu Isa</td><td>8:34</td><td>Returning</td>
+                  <td><span class="badge badge-warning">Waiting</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                      <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                      <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                      <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>GOPD-004</td><td>02134</td>
+                  <td><div class="cell-primary">Zainab Usman</div><div class="cell-secondary">NIN: 467473844</div></td>
+                  <td>Dr Aliyu Isa</td><td>8:12</td><td>New</td>
+                  <td><span class="badge badge-info">In-Consultation</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                      <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                      <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                      <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>GOPD-005</td><td>02134</td>
+                  <td><div class="cell-primary">Zainab Usman</div><div class="cell-secondary">NIN: 467473844</div></td>
+                  <td>Dr Aliyu Isa</td><td>7:45</td><td>New</td>
+                  <td><span class="badge badge-success">Completed</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                      <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                      <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                      <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>GOPD-006</td><td>02134</td>
+                  <td><div class="cell-primary">Zainab Usman</div><div class="cell-secondary">NIN: 467473844</div></td>
+                  <td>Dr Aliyu Isa</td><td>7:12</td><td>New</td>
+                  <td><span class="badge badge-danger">Missed</span></td>
+                  <td>
+                    <div class="action-group">
+                      <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                      <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                      <button class="action-icon folder"><i class="fa-regular fa-folder"></i></button>
+                      <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="pagination">
+              <div>Showing 1 to 10 of 345 entries</div>
+              <div class="pagination__pages">
+                <button class="page-btn"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">…</button>
+                <button class="page-btn">35</button>
+                <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Panels -->
+          <div>
+            <!-- Queue Summary -->
+            <div class="card" style="padding:0; margin-bottom:16px;">
+              <div style="padding:14px 16px; border-bottom:1px solid var(--border-light);">
+                <h3 class="card-title" style="margin:0;">Queue Summary</h3>
+              </div>
+              <div class="summary-list">
+                <div class="summary-item">
+                  <span class="label"><span class="color-dot" style="background: var(--pink);"></span> High Priority</span>
+                  <span class="value" style="color: var(--pink);">45</span>
+                </div>
+                <div class="summary-item">
+                  <span class="label"><span class="color-dot" style="background: var(--blue);"></span> Total Checked in</span>
+                  <span class="value" style="color: var(--blue);">45</span>
+                </div>
+                <div class="summary-item">
+                  <span class="label"><span class="color-dot" style="background: var(--orange-dark);"></span> Waiting</span>
+                  <span class="value" style="color: var(--orange-dark);">45</span>
+                </div>
+                <div class="summary-item">
+                  <span class="label"><span class="color-dot" style="background: var(--blue);"></span> In-Consultation</span>
+                  <span class="value" style="color: var(--blue);">45</span>
+                </div>
+                <div class="summary-item">
+                  <span class="label"><span class="color-dot" style="background: var(--primary);"></span> Completed</span>
+                  <span class="value" style="color: var(--primary);">45</span>
+                </div>
+                <div class="summary-item">
+                  <span class="label"><span class="color-dot" style="background: var(--red);"></span> Missed</span>
+                  <span class="value" style="color: var(--red);">45</span>
+                </div>
+              </div>
+              <div style="padding:14px 16px; border-top:1px solid var(--border-light);">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:12px; color: var(--text-muted);">Average Wait Time</span>
+                  <span style="font-size:20px; font-weight:700; color: var(--text-primary);">25</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clinic Information -->
+            <div class="card" style="padding:0;">
+              <div style="padding:14px 16px; border-bottom:1px solid var(--border-light);">
+                <h3 class="card-title" style="margin:0;">Clinic Information</h3>
+              </div>
+              <div style="padding:8px 16px;">
+                <div class="info-row"><span class="lbl">Clinic</span><span class="val">GOPD</span></div>
+                <div class="info-row"><span class="lbl">Nurses</span><span class="val">3</span></div>
+                <div class="info-row"><span class="lbl">Doctors</span><span class="val">10</span></div>
+                <div class="info-row"><span class="lbl">Consulting Rooms</span><span class="val">10</span></div>
+                <div class="info-row"><span class="lbl">Clinic Session</span><span class="val">Morning</span></div>
+                <div class="info-row"><span class="lbl">Clinic Prefix</span><span class="val">GOPD</span></div>
+                <div class="info-row"><span class="lbl">Current Queue No</span><span class="val">GOPD-045</span></div>
+                <div class="info-row">
+                  <span class="lbl">Status</span>
+                  <span class="val" style="color: var(--primary); display:flex; align-items:center; gap:6px;">
+                    <span class="status-dot"></span> Open
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <!-- Check-in Modal -->
+  <div class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-header__title">
+          <div class="modal-header__icon"><i class="fa-solid fa-check"></i></div>
+          Check-in Patient
+        </div>
+        <button class="modal-close" data-close-modal><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <!-- Section 1 -->
+        <div class="step-header">
+          <div class="step-badge">1</div>
+          Search Patient
+        </div>
+        <div class="form-icon-input" style="margin-bottom:12px;">
+          <i class="fa-solid fa-magnifying-glass input-icon"></i>
+          <input type="text" class="form-control" value="NIN: 8743849445" />
+          <i class="fa-solid fa-xmark input-icon" style="left:auto; right:12px; cursor:pointer;"></i>
+        </div>
+        <!-- Result card -->
+        <div class="patient-result-card" style="border: 2px solid var(--primary); margin-bottom:20px;">
+          <div class="user-avatar lg" style="background: linear-gradient(135deg, #EC4899, #BE185D);">AM</div>
+          <div class="meta">
+            <div class="name">Amna Musa Abdullahi
+              <span class="badge badge-success" style="margin-left:8px;">NHIA</span>
+            </div>
+            <div class="row1">Hosp No: 000384 • UPI: UPI-00348494BD • NIN: 8743849445</div>
+            <div class="row2">Last Visit: 06 August, 2026 (GOPD)</div>
+          </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="step-header">
+          <div class="step-badge">2</div>
+          Confirm Details & Check-in
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+          <!-- Patient Info Card -->
+          <div style="border:1px solid var(--border-light); border-radius: var(--r-md); padding:14px; position:relative;">
+            <span class="badge badge-success" style="position:absolute; top:10px; right:10px;">NHIA</span>
+            <div style="display:flex; gap:12px;">
+              <div class="user-avatar" style="background: linear-gradient(135deg, #EC4899, #BE185D);">AM</div>
+              <div style="flex:1;">
+                <div style="font-weight:600; font-size:13px; margin-bottom:8px;">Amna Musa Abdullahi</div>
+                <div class="patient-detail-row"><i class="fa-solid fa-building"></i><span class="lbl">Hosp No</span><span>000384</span></div>
+                <div class="patient-detail-row"><i class="fa-solid fa-id-card"></i><span class="lbl">UPI</span><span>UPI-00348494BD</span></div>
+                <div class="patient-detail-row"><i class="fa-solid fa-user"></i><span class="lbl">Female</span><span>32 years</span></div>
+                <div class="patient-detail-row"><i class="fa-solid fa-phone"></i><span class="lbl">Phone</span><span>080348475834</span></div>
+                <div class="patient-detail-row"><i class="fa-solid fa-house"></i><span class="lbl">Address</span><span>No 67, Charles degole street, Wuse, Abuja</span></div>
+              </div>
+            </div>
+            <a href="#" class="btn-link" style="font-size:12px; margin-top:10px; display:inline-block;"><i class="fa-solid fa-plus"></i> View Full Profile</a>
+          </div>
+
+          <!-- Appointment Details -->
+          <div>
+            <div style="color: var(--primary); font-weight:600; font-size:13px; margin-bottom:10px;">Appointment Details</div>
+            <div style="border:1px solid var(--border-light); border-radius: var(--r-md); padding:12px; font-size:12px;">
+              <div style="display:flex; justify-content:space-between; padding:4px 0;"><span style="color:var(--text-muted);">Clinic:</span><span>GOPD</span></div>
+              <div style="display:flex; justify-content:space-between; padding:4px 0;"><span style="color:var(--text-muted);">Doctor:</span><span>Dr Ahmad Shu'aib</span></div>
+              <div style="display:flex; justify-content:space-between; padding:4px 0;"><span style="color:var(--text-muted);">Date:</span><span>10 August, 2026</span></div>
+              <div style="display:flex; justify-content:space-between; padding:4px 0;"><span style="color:var(--text-muted);">Time:</span><span>9:15 am</span></div>
+              <div style="display:flex; justify-content:space-between; padding:4px 0; align-items:center;">
+                <span style="color:var(--text-muted);">Appointment Status:</span>
+                <span class="badge badge-success">Confirmed</span>
+              </div>
+            </div>
+            <div style="margin-top:14px;">
+              <div style="font-size:12px; color: var(--primary); font-weight:600; margin-bottom:6px;">Check-in Type</div>
+              <div style="display:flex; gap:8px;">
+                <div class="radio-simple selected"><div class="dot"></div> Appointment</div>
+                <div class="radio-simple"><div class="dot"></div> Walk-in</div>
+              </div>
+            </div>
+            <div style="margin-top:14px;">
+              <div style="font-size:12px; color: var(--primary); font-weight:600; margin-bottom:6px;">Arrival Time</div>
+              <div class="form-icon-input">
+                <i class="fa-regular fa-clock input-icon"></i>
+                <input type="text" class="form-control" value="8:30am" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="queue-management.html"><button class="btn btn-primary"><i class="fa-solid fa-check"></i> Confirm Check-in</button></a>
+      </div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>

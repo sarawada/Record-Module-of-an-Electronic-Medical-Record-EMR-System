@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUTH EMR - Master Patient Index</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="master-patient-index">
+  <div class="app-shell">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+       <div class="header-content">
+            <div class="logo">
+                <img src="img/Hospital_FUTH-logo (1).png" alt="FUTH logo">
+                <span class="logo-text">FUTH EMR</span>
+            </div>
+        </div>
+      <nav class="sidebar__nav">
+        <div class="nav-group">
+          <a class="nav-item" href="dashboard.html"><span class="nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a>
+        </div>
+        <div class="nav-group">
+          <div class="nav-item active"><span class="nav-icon"><i class="fa-solid fa-users"></i></span>Patients<span style="margin-left:auto;"><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></span></div>
+          <div class="nav-sub">
+            <a class="nav-sub-item active" data-page="master-patient-index" href="master-patient-index.html"><span class="dot"></span>Master Patient Index</a>
+            <a class="nav-sub-item" data-page="patient-management" href="patient-management.html"><span class="dot"></span>Patient Management</a>
+            <a class="nav-sub-item" data-page="patient-registration-private" href="patient-registration-private.html"><span class="dot"></span>Patient Registration</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-item"><span class="nav-icon"><i class="fa-regular fa-calendar-plus"></i></span>Appointment<span style="margin-left:auto;"><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></span></div>
+          <div class="nav-sub">
+            <a class="nav-sub-item" data-page="book-appointment" href="book-appointment.html"><span class="dot"></span>Book Appointment</a>
+            <a class="nav-sub-item" data-page="appointment-lists-1" href="appointment-lists-1.html"><span class="dot"></span>Appointment Lists</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <a class="nav-item" href="queue-management.html"><span class="nav-icon"><i class="fa-solid fa-clipboard-list"></i></span>Queue Management</a>
+        </div>
+        <div class="nav-group"><a class="nav-item" href="schedule-configuration.html"><span class="nav-icon"><i class="fa-regular fa-clock"></i></span>Scheduling Configuration</a></div>
+        <div class="nav-divider"></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-gear"></i></span>Settings</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-comment"></i></span>Message</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-regular fa-circle-question"></i></span>Help Center</a></div>
+        <div class="nav-group"><a class="nav-item" href="#"><span class="nav-icon"><i class="fa-solid fa-user-group"></i></span>Support</a></div>
+      </nav>
+      <div class="sidebar__footer">
+        <div class="user-avatar">UF</div>
+        <div class="user-info">
+          <div class="user-name">Umar Farouk</div>
+          <div class="user-role">Record Officer</div>
+          <div class="user-status"><span class="status-dot"></span> Online</div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar__left">
+          <button class="topbar__menu-btn"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar__title">Patients</div>
+        </div>
+        <div class="topbar__center">
+          <div class="topbar__search">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search patients" />
+          </div>
+        </div>
+        <div class="topbar__right">
+          <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+          <div class="topbar__user">
+            <div class="user-avatar sm">UF</div>
+            <span style="font-size:13px; font-weight:500;">Umar Farouk</span>
+            <i class="fa-solid fa-chevron-down chevron"></i>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="breadcrumb">
+          <a href="dashboard.html">Home</a><span class="sep">›</span>
+          <a href="#">Patients</a><span class="sep">›</span>
+          <span class="current">Patient Management</span>
+        </div>
+          
+      <div class="page-header-wrap">
+        <div class="page-header">
+          <div>
+            <h1 class="page-header__title">
+              Master Patient Index
+              <i class="fa-solid fa-circle-info" style="color: var(--text-muted); font-size:18px;"></i>
+            </h1>
+            <div class="page-header__subtitle">Search an existing patient in the system, if no match is found, register</div>
+          </div>
+          <div class="page-header__actions">
+            <a href="patient-registration-private.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Registration</a>
+          </div>
+        </div>
+
+        <!-- Filter panel -->
+        <div class="card" style="margin-bottom:16px;">
+          <div style="display:flex; gap:10px; align-items:center; margin-bottom:14px;">
+            <div class="form-icon-input" style="flex:1;">
+              <i class="fa-solid fa-magnifying-glass input-icon"></i>
+              <input type="text" class="form-control" placeholder="Search by NIN, Hosp No, surname, phone no..." />
+            </div>
+            <button class="btn btn-success-outline"><i class="fa-solid fa-sliders"></i> Advanced filter</button>
+          </div>
+
+          <div class="form-grid cols-4">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Hosp No</label>
+              <input type="text" class="form-control" placeholder="Hosp No" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">NIN</label>
+              <input type="text" class="form-control" placeholder="Enter NIN" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Phone No</label>
+              <input type="text" class="form-control" placeholder="Enter phone number" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Surname</label>
+             <input type="text" class="form-control" placeholder="Enter surname" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-control" placeholder="Enter firstname" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Other Name</label>
+              <input type="text" class="form-control" placeholder="Enter othername" />
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Gender</label>
+              <select class="form-control"><option>All</option><option>Female</option><option>Male</option></select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Date of Birth</label>
+              <div class="form-icon-input">
+                <i class="fa-regular fa-calendar input-icon"></i>
+                <input type="datetime-local" class="form-control" placeholder="DD-MM-YY" />
+              </div>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Registration Status</label>
+              <select class="form-control"><option>--select--</option><option>Registered</option><option>Unregistered</option></select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Facility</label>
+              <select class="form-control"><option>--select--</option><option>FUTH-main</option><option>Annex A</option><option>Annex B</option></select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label">Last Visit</label>
+              <div class="form-icon-input">
+                <i class="fa-regular fa-calendar input-icon"></i>
+                <input type="datetime-local" class="form-control" placeholder="DD-MM-YY" />
+              </div>
+            </div>
+            <div style="display:flex; align-items:flex-end; gap:8px;">
+              <button class="btn btn-outline"><i class="fa-solid fa-eraser"></i> Clear all</button>
+              <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> Apply Filter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warning alert -->
+        <div class="alert alert-warning" style="margin-bottom:16px;">
+          <i class="fa-solid fa-triangle-exclamation alert-icon"></i>
+          <div class="alert-content">
+            <div class="alert-title">Possible duplicates records may exist</div>
+            <div class="alert-sub">Please review the result carefully before registering a new patient</div>
+          </div>
+          <button class="btn btn-warning-outline" style="margin-left:auto;">View 3 possible matches</button>
+        </div>
+
+        <!-- Results table -->
+        <div class="table-wrap">
+          <div class="table-toolbar">
+            <div class="table-toolbar__left">
+              <strong style="font-size:14px;">Search Results</strong>
+              <span class="badge badge-success">3 Records Found</span>
+            </div>
+            <div class="table-toolbar__right">
+              <span style="font-size:12px; color:var(--text-muted);">Show</span>
+              <select class="form-control" style="height:32px; width:60px; padding:0 8px;">
+                <option>10</option><option>25</option><option>50</option>
+              </select>
+              <span style="font-size:12px; color:var(--text-muted);">Entries</span>
+              <button class="icon-btn"><i class="fa-solid fa-download"></i></button>
+            </div>
+          </div>
+          <div style="overflow-x:auto;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Hosp No</th><th>Name</th><th>Gender</th><th>DOB</th><th>Phone No.</th>
+                <th>Last Visit</th><th>Reg Status</th><th>Match</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>02134</td>
+                <td>
+                  <div class="cell-primary">Aisha Musa</div>
+                  <div class="cell-secondary">NIN: 467473844</div>
+                </td>
+                <td>Female</td>
+                <td>
+                  <div>12/03/1990</div>
+                  <div class="cell-secondary">(34yr)</div>
+                </td>
+                <td>0809283938</td>
+                <td>2 days ago</td>
+                <td><span class="badge badge-success">Active</span></td>
+                <td><span class="match-pill low">36%</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>02134</td>
+                <td>
+                  <div class="cell-primary">Aisha Musa Aliyu</div>
+                  <div class="cell-secondary">NIN: 353567746</div>
+                </td>
+                <td>Female</td>
+                <td><div>12/03/1990</div><div class="cell-secondary">(34yr)</div></td>
+                <td>0809746458</td>
+                <td>2 days ago</td>
+                <td><span class="badge badge-danger">Inactive</span></td>
+                <td><span class="match-pill high">96%</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>02134</td>
+                <td>
+                  <div class="cell-primary">Aishatu Musa</div>
+                  <div class="cell-secondary">NIN: 467473844</div>
+                </td>
+                <td>Female</td>
+                <td><div>12/03/1990</div><div class="cell-secondary">(34yr)</div></td>
+                <td>0809283938</td>
+                <td>2 days ago</td>
+                <td><span class="badge badge-success">Active</span></td>
+                <td><span class="match-pill low">46%</span></td>
+                <td>
+                  <div class="action-group">
+                    <button class="action-icon view"><i class="fa-regular fa-eye"></i></button>
+                    <button class="action-icon edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="action-icon user"><i class="fa-solid fa-calendar-plus"></i></i></button>
+                    <button class="action-icon menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="pagination">
+            <div>Showing 1 to 3 of 3 entries</div>
+            <div class="pagination__pages">
+              <button class="page-btn"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
